@@ -1,0 +1,137 @@
+
+ENTROPIA Y COMPRESION DE TEXTO
+
+texto       caracteres originales  simbolos normalizados
+quijote                   2148391                2034952
+niebla                     328009                 298592
+pride                      743286                 692499
+codigo                     214930                 143724
+aleatorio                  200000                 200000
+
+================================================================================
+1. ENTROPIAS (texto normalizado completo, en bits por simbolo)
+   Hmax = log2(28) = 4.8074
+================================================================================
+texto       simbolos      H1      H2      H3      F2      F3      R1      R3
+quijote      2034952  3.9818  3.5122  3.2001  3.0427  2.5757  0.1717  0.3343
+niebla        298592  3.9811  3.5409  3.2224  3.1006  2.5855  0.1719  0.3297
+pride         692499  4.0976  3.7011  3.3251  3.3046  2.5731  0.1476  0.3083
+codigo        143724  4.1229  3.7952  3.3845  3.4675  2.5633  0.1424  0.2960
+aleatorio     200000  4.8073  4.8059  4.7799  4.8045  4.7280  0.0000  0.0057
+
+================================================================================
+2. SESGO POR TAMANO FINITO (primeros N simbolos del texto normalizado)
+================================================================================
+texto              N      H1      H2      H3      F3
+quijote        10000  3.9657  3.3992  2.9300  1.9917
+quijote        50000  3.9868  3.5207  3.1876  2.5213
+quijote       100000  3.9834  3.5163  3.1924  2.5447
+
+niebla         10000  3.9926  3.5258  3.1448  2.3828
+niebla         50000  3.9889  3.5542  3.2256  2.5683
+niebla        100000  3.9815  3.5468  3.2241  2.5786
+
+pride          10000  4.0942  3.6855  3.2648  2.4233
+pride          50000  4.0953  3.7075  3.3300  2.5750
+pride         100000  4.0965  3.7049  3.3292  2.5777
+
+codigo         10000  4.1216  3.7392  3.2527  2.2798
+codigo         50000  4.1387  3.7965  3.3425  2.4345
+codigo        100000  4.1413  3.8232  3.4115  2.5881
+
+aleatorio      10000  4.8051  4.7768  4.2901  3.3167
+aleatorio      50000  4.8068  4.8014  4.6860  4.4552
+aleatorio     100000  4.8072  4.8045  4.7513  4.6448
+
+================================================================================
+3. HUFFMAN (sobre el texto normalizado)
+   bpc = bits por caracter contando la tabla de codigos y la cabecera
+================================================================================
+texto           H1       L eficiencia     bytes  tabla     bpc   ok
+quijote     3.9818  4.0317     0.9876   1025637     85  4.0321   si
+niebla      3.9811  4.0276     0.9885    150416     84  4.0300   si
+pride       4.0976  4.1330     0.9914    357852     85  4.1340   si
+codigo      4.1229  4.1539     0.9925     74715     83  4.1588   si
+aleatorio   4.8073  4.8547     0.9902    121457     84  4.8583   si
+
+================================================================================
+4. ZLIB Y GZIP (niveles 1, 6 y 9)
+   bpc = 8 * bytes comprimidos / numero de caracteres
+   razon = bytes sin comprimir / bytes comprimidos
+================================================================================
+texto      version     metodo    bytes_in bytes_out     bpc   razon
+quijote    original    zlib-1     2205974    983606  3.6627   2.243
+quijote    original    gzip-1     2205974    983618  3.6627   2.243
+quijote    original    zlib-6     2205974    812022  3.0237   2.717
+quijote    original    gzip-6     2205974    812034  3.0238   2.717
+quijote    original    zlib-9     2205974    807674  3.0075   2.731
+quijote    original    gzip-9     2205974    807686  3.0076   2.731
+quijote    normalizado zlib-1     2034952    857308  3.3703   2.374
+quijote    normalizado gzip-1     2034952    857320  3.3704   2.374
+quijote    normalizado zlib-6     2034952    697174  2.7408   2.919
+quijote    normalizado gzip-6     2034952    697186  2.7408   2.919
+quijote    normalizado zlib-9     2034952    691254  2.7175   2.944
+quijote    normalizado gzip-9     2034952    691266  2.7176   2.944
+
+niebla     original    zlib-1      342825    153310  3.7392   2.236
+niebla     original    gzip-1      342825    153322  3.7395   2.236
+niebla     original    zlib-6      342825    128924  3.1444   2.659
+niebla     original    gzip-6      342825    128936  3.1447   2.659
+niebla     original    zlib-9      342825    128376  3.1310   2.670
+niebla     original    gzip-9      342825    128388  3.1313   2.670
+niebla     normalizado zlib-1      298592    124643  3.3395   2.396
+niebla     normalizado gzip-1      298592    124655  3.3398   2.395
+niebla     normalizado zlib-6      298592    103296  2.7675   2.891
+niebla     normalizado gzip-6      298592    103308  2.7679   2.890
+niebla     normalizado zlib-9      298592    102715  2.7520   2.907
+niebla     normalizado gzip-9      298592    102727  2.7523   2.907
+
+pride      original    zlib-1      752486    325416  3.5025   2.312
+pride      original    gzip-1      752486    325428  3.5026   2.312
+pride      original    zlib-6      752486    269011  2.8954   2.797
+pride      original    gzip-6      752486    269023  2.8955   2.797
+pride      original    zlib-9      752486    267961  2.8841   2.808
+pride      original    gzip-9      752486    267973  2.8842   2.808
+pride      normalizado zlib-1      692499    284781  3.2899   2.432
+pride      normalizado gzip-1      692499    284793  3.2900   2.432
+pride      normalizado zlib-6      692499    231679  2.6764   2.989
+pride      normalizado gzip-6      692499    231691  2.6766   2.989
+pride      normalizado zlib-9      692499    230145  2.6587   3.009
+pride      normalizado gzip-9      692499    230157  2.6589   3.009
+
+codigo     original    zlib-1      214930     65944  2.4545   3.259
+codigo     original    gzip-1      214930     65956  2.4550   3.259
+codigo     original    zlib-6      214930     54480  2.0278   3.945
+codigo     original    gzip-6      214930     54492  2.0283   3.944
+codigo     original    zlib-9      214930     54072  2.0126   3.975
+codigo     original    gzip-9      214930     54084  2.0131   3.974
+codigo     normalizado zlib-1      143724     43188  2.4039   3.328
+codigo     normalizado gzip-1      143724     43200  2.4046   3.327
+codigo     normalizado zlib-6      143724     35312  1.9655   4.070
+codigo     normalizado gzip-6      143724     35324  1.9662   4.069
+codigo     normalizado zlib-9      143724     35248  1.9620   4.078
+codigo     normalizado gzip-9      143724     35260  1.9627   4.076
+
+aleatorio  original    zlib-1      207139    136731  5.4692   1.515
+aleatorio  original    gzip-1      207139    136743  5.4697   1.515
+aleatorio  original    zlib-6      207139    131537  5.2615   1.575
+aleatorio  original    gzip-6      207139    131549  5.2620   1.575
+aleatorio  original    zlib-9      207139    131537  5.2615   1.575
+aleatorio  original    gzip-9      207139    131549  5.2620   1.575
+aleatorio  normalizado zlib-1      200000    133582  5.3433   1.497
+aleatorio  normalizado gzip-1      200000    133594  5.3438   1.497
+aleatorio  normalizado zlib-6      200000    128776  5.1510   1.553
+aleatorio  normalizado gzip-6      200000    128788  5.1515   1.553
+aleatorio  normalizado zlib-9      200000    128776  5.1510   1.553
+aleatorio  normalizado gzip-9      200000    128788  5.1515   1.553
+
+================================================================================
+5. RESUMEN (texto normalizado, bits por caracter)
+================================================================================
+texto           H1      H2      H3      F3       L  huffman  zlib-9  gzip-9
+quijote     3.9818  3.5122  3.2001  2.5757  4.0317   4.0321  2.7175  2.7176
+niebla      3.9811  3.5409  3.2224  2.5855  4.0276   4.0300  2.7520  2.7523
+pride       4.0976  3.7011  3.3251  2.5731  4.1330   4.1340  2.6587  2.6589
+codigo      4.1229  3.7952  3.3845  2.5633  4.1539   4.1588  1.9620  1.9627
+aleatorio   4.8073  4.8059  4.7799  4.7280  4.8547   4.8583  5.1510  5.1515
+
